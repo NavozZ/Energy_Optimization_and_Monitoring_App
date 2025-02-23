@@ -16,7 +16,7 @@ class ChargingStatusCard extends StatelessWidget {
   const ChargingStatusCard({
     Key? key,
     required this.chargingStatus,
-    this.imagePath = 'assets/images/charging_icon.png',
+    this.imagePath = 'assets/Icons/batterycharging.gif',
   }) : super(key: key);
 
   @override
@@ -48,7 +48,6 @@ class ChargingStatusCard extends StatelessWidget {
                     imagePath,
                     width: 30,
                     height: 30,
-                    color: Colors.white,
                   ),
                   SizedBox(width: 8),
                   Expanded(

@@ -40,7 +40,7 @@ flutter:
     - assets/Icons/Voltage.png
     - assets/Icons/weather.png
     - assets/Icons/Logo.png
-    - assets/Icons/battery.png
+    - assets/Icons/batterycharging.gif
     - assets/Icons/carcharging.png
     - assets/Icons/Lamp.png
     - assets/Icons/Monitoring.png

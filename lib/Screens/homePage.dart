@@ -136,8 +136,11 @@ class _HomepageState extends State<Homepage> {
                     ),
                   ),
                 ),
-                Text('Select an option from the side panel',
-                    style: TextStyle(fontSize: 16)),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 40),
+                  child: Text('Select an option from the side panel',
+                      style: TextStyle(fontSize: 16)),
+                ),
               ],
             ),
           ),
