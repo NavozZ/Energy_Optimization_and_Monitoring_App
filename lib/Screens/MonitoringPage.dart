@@ -1,7 +1,10 @@
+import 'package:energy_optimization_and_monitoring_app/Widgets/ChargingCard.dart';
 import 'package:energy_optimization_and_monitoring_app/Widgets/custom_card.dart';
 import 'package:flutter/material.dart';
 
 class Monitoringpage extends StatelessWidget {
+  const Monitoringpage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,21 +48,18 @@ class Monitoringpage extends StatelessWidget {
                   imagePath:
                       'assets/Icons/Voltage.png', // Path to your custom image
                   title: 'Room 1',
-
                   data: '220 V',
                 ),
                 CustomCard(
                   imagePath:
                       'assets/Icons/Voltage.png', // Path to your custom image
                   title: 'Room 2',
-
                   data: '220 V',
                 ),
                 CustomCard(
                   imagePath:
                       'assets/Icons/Voltage.png', // Path to your custom image
                   title: 'Living Room',
-
                   data: '220 V',
                 )
               ],
@@ -84,7 +84,6 @@ class Monitoringpage extends StatelessWidget {
                   imagePath:
                       'assets/Icons/Temperature.png', // Path to your custom image
                   title: 'Room 1',
-
                   data: '24°C',
                 ),
               ],
@@ -105,12 +104,12 @@ class Monitoringpage extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                CustomCard(
-                  imagePath:
-                      'assets/Icons/Temperature.png', // Path to your custom image
-                  title: 'Main Battery',
-
-                  data: '50%',
+                ChargingStatusCard(
+                  chargingStatus: ChargingStatus(
+                    title: 'Tesla Model S',
+                    status: 'Charging',
+                    percentage: 75,
+                  ),
                 ),
               ],
             ),

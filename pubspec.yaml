@@ -40,11 +40,15 @@ flutter:
     - assets/Icons/Voltage.png
     - assets/Icons/weather.png
     - assets/Icons/Logo.png
+    - assets/Icons/battery.png
+    - assets/Icons/carcharging.png
     - assets/Icons/Lamp.png
     - assets/Icons/Monitoring.png
     - assets/Icons/ControlPanel.png
-    - assets/Icons/Battery.png
-    - assets/Icons/CarCharging.png
+    - assets/Icons/solar.png
+    - assets/Icons/HomePage.gif
+
+    
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

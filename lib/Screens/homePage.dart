@@ -108,9 +108,37 @@ class _HomepageState extends State<Homepage> {
             ),
           ),
           Expanded(
-            child: Center(
-              child: Text(
-                  'Select an option from the side panel'), // Placeholder text
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 100),
+                    child: Text(
+                      'Home Energy Monitoring And Optimizing System',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: const Color.fromARGB(255, 17, 17, 17),
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 80),
+                    child: Image.asset(
+                      'assets/Icons/HomePage.gif',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+                Text('Select an option from the side panel',
+                    style: TextStyle(fontSize: 16)),
+              ],
             ),
           ),
         ],
