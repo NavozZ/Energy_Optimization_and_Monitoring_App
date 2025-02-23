@@ -1,4 +1,4 @@
-import 'package:energy_optimization_and_monitoring_app/homePage.dart';
+import 'package:energy_optimization_and_monitoring_app/Screens/homePage.dart';
 import 'package:flutter/material.dart';
 
 void main() {

@@ -1,6 +1,6 @@
-import 'package:energy_optimization_and_monitoring_app/ControlingPage.dart';
-import 'package:energy_optimization_and_monitoring_app/DashboardPage.dart';
-import 'package:energy_optimization_and_monitoring_app/MonitoringPage.dart';
+import 'package:energy_optimization_and_monitoring_app/Screens/ControlingPage.dart';
+import 'package:energy_optimization_and_monitoring_app/Screens/DashboardPage.dart';
+import 'package:energy_optimization_and_monitoring_app/Screens/MonitoringPage.dart';
 import 'package:flutter/material.dart';
 
 class Homepage extends StatefulWidget {
@@ -31,12 +31,11 @@ class _HomepageState extends State<Homepage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 5,
-                    ),
-                    child: Icon(Icons.ac_unit, color: Colors.white),
-                  ), // Example logo
+                  child: Image.asset(
+                    'assets/Icons/Logo.png', // Custom logo icon
+                    width: 30,
+                    height: 30,
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 5),
@@ -57,7 +56,10 @@ class _HomepageState extends State<Homepage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 15, bottom: 10),
                         child: IconButton(
-                          icon: Icon(Icons.dashboard, color: Colors.white),
+                          icon: Image.asset(
+                            'assets/Icons/Dasboard.png',
+                          ),
+                          iconSize: 30,
                           onPressed: () {
                             Navigator.push(
                               context,
@@ -70,7 +72,10 @@ class _HomepageState extends State<Homepage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 15, bottom: 10),
                         child: IconButton(
-                          icon: Icon(Icons.monitor, color: Colors.white),
+                          icon: Image.asset(
+                            'assets/Icons/Monitoring.png',
+                          ),
+                          iconSize: 30,
                           onPressed: () {
                             Navigator.push(
                               context,
@@ -83,7 +88,10 @@ class _HomepageState extends State<Homepage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 15, bottom: 10),
                         child: IconButton(
-                          icon: Icon(Icons.settings, color: Colors.white),
+                          icon: Image.asset(
+                            'assets/Icons/ControlPanel.png',
+                          ),
+                          iconSize: 30,
                           onPressed: () {
                             Navigator.push(
                               context,
