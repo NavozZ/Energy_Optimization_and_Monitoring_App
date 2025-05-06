@@ -10,15 +10,14 @@ class Monitoringpage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Row(
-          mainAxisSize: MainAxisSize
-              .min, // Ensures the row takes only as much space as needed
+          mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(
-              'assets/Icons/Monitoring.png', // Use your custom icon
-              width: 30, // Set your desired width for the icon
-              height: 30, // Set your desired height for the icon
+              'assets/Icons/Monitoring.png',
+              width: 30,
+              height: 30,
             ),
-            SizedBox(width: 8), // Space between icon and text
+            SizedBox(width: 8),
             Text(
               'Monitoring',
               style: TextStyle(fontWeight: FontWeight.w900),
@@ -27,85 +26,54 @@ class Monitoringpage extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        // This will make the entire body scrollable
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                'Voltage',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: const Color.fromARGB(255, 10, 10, 10),
-                ),
-              ),
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Voltage Section
+              _buildSectionHeader('Voltage'),
+              _buildHorizontalCardList(
+                cards: [
                   CustomCard(
-                    imagePath:
-                        'assets/Icons/Voltage.png', // Path to your custom image
+                    imagePath: 'assets/Icons/Voltage.png',
                     title: 'Room 1',
                     data: '220 V',
                   ),
                   CustomCard(
-                    imagePath:
-                        'assets/Icons/Voltage.png', // Path to your custom image
+                    imagePath: 'assets/Icons/Voltage.png',
                     title: 'Room 2',
                     data: '220 V',
                   ),
                   CustomCard(
-                    imagePath:
-                        'assets/Icons/Voltage.png', // Path to your custom image
+                    imagePath: 'assets/Icons/Voltage.png',
                     title: 'Living Room',
                     data: '220 V',
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                'Temperature',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: const Color.fromARGB(255, 10, 10, 10),
-                ),
-              ),
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  CustomCard(
-                    imagePath:
-                        'assets/Icons/Temperature.png', // Path to your custom image
-                    title: 'Room 1',
-                    data: '24°C',
                   ),
                 ],
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                'Battery Status',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: const Color.fromARGB(255, 10, 10, 10),
-                ),
+
+              // Temperature Section
+              _buildSectionHeader('Temperature'),
+              _buildHorizontalCardList(
+                cards: [
+                  CustomCard(
+                    imagePath: 'assets/Icons/Temperature.png',
+                    title: 'Room 1',
+                    data: '24°C',
+                  ),
+                  CustomCard(
+                    imagePath: 'assets/Icons/Temperature.png',
+                    title: 'Room 2',
+                    data: '23°C',
+                  ),
+                ],
               ),
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
+
+              // Battery Status Section
+              _buildSectionHeader('Battery Status'),
+              _buildHorizontalCardList(
+                cards: [
                   ChargingStatusCard(
                     chargingStatus: ChargingStatus(
                       title: 'Main Battery',
@@ -122,22 +90,11 @@ class Monitoringpage extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                'Car Charging',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: const Color.fromARGB(255, 10, 10, 10),
-                ),
-              ),
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
+
+              // Car Charging Section
+              _buildSectionHeader('Car Charging'),
+              _buildHorizontalCardList(
+                cards: [
                   ChargingStatusCard(
                     chargingStatus: ChargingStatus(
                       title: 'Electric Car',
@@ -147,9 +104,34 @@ class Monitoringpage extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
+      ),
+    );
+  }
+
+  // Helper function to build the section header
+  Widget _buildSectionHeader(String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      child: Text(
+        title,
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: const Color.fromARGB(255, 10, 10, 10),
+        ),
+      ),
+    );
+  }
+
+  // Helper function to build a horizontally scrollable row of cards
+  Widget _buildHorizontalCardList({required List<Widget> cards}) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: cards,
       ),
     );
   }

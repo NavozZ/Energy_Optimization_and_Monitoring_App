@@ -50,6 +50,7 @@ flutter:
     - assets/Icons/ControlPanel.png
     - assets/Icons/solar.png
     - assets/Icons/HomePage.gif
+    - assets/Icons/icons8-user-48.png
 
     
   #   - images/a_dot_ham.jpeg

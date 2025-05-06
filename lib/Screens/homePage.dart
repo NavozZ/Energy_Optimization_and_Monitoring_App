@@ -1,6 +1,9 @@
 import 'package:energy_optimization_and_monitoring_app/Screens/ControlingPage.dart';
 import 'package:energy_optimization_and_monitoring_app/Screens/DashboardPage.dart';
 import 'package:energy_optimization_and_monitoring_app/Screens/MonitoringPage.dart';
+import 'package:energy_optimization_and_monitoring_app/Screens/UserProfilePage.dart'; // Add your Profile page
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Homepage extends StatefulWidget {
@@ -11,138 +14,137 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  // Track the selected index for Bottom Navigation Bar
+  int _selectedIndex = 0;
+  String _userName = ''; // To store the logged-in user's name
+
+  // List of screens corresponding to each tab
+  final List<Widget> _screens = [
+    DashboardPage(),
+    Monitoringpage(),
+    Controlingpage(),
+  ];
+
+  // Create a GlobalKey for the Scaffold to open the Drawer
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  // Handle Bottom Navigation Bar tab change
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index; // Change the selected screen
+    });
+  }
+
+  // Sign-out method
+  Future<void> _signOut() async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.pushReplacementNamed(
+        context, '/login'); // Redirect to the login screen after logout
+  }
+
+  // Fetch the logged-in user's name from Firestore
+  Future<void> _fetchUserProfile() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+      setState(() {
+        _userName =
+            userDoc['name'] ?? 'No name'; // Retrieve user's name from Firestore
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserProfile(); // Fetch the user profile when the app starts
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-        children: <Widget>[
-          Container(
-            width: 50, // Set the width of the side panel
-            color: const Color.fromARGB(255, 80, 142, 173),
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: Divider(
-                    color: Colors.white,
-                    indent: 10,
-                    endIndent: 10,
+      key: _scaffoldKey, // Assign the key to the Scaffold
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: Text(
+          'Smart Home App',
+          style: TextStyle(fontWeight: FontWeight.w900, color: Colors.white),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () {
+            _scaffoldKey.currentState
+                ?.openDrawer(); // Open the drawer using the scaffoldKey
+          },
+        ),
+      ),
+      body: _screens[_selectedIndex], // Show the corresponding screen
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            // Drawer Header (can include a profile picture and user name)
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundImage: AssetImage(
+                        'assets/Icons/icons8-user-48.png'), // Add user profile image
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset(
-                    'assets/Icons/Logo.png', // Custom logo icon
-                    width: 30,
-                    height: 30,
+                  SizedBox(height: 10),
+                  Text(
+                    _userName, // Display the logged-in user's name
+                    style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 5),
-                  child: Divider(
-                    color: Colors.white,
-                    indent: 10,
-                    endIndent: 10,
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Menu",
-                        style: TextStyle(color: Colors.white, fontSize: 10),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15, bottom: 10),
-                        child: IconButton(
-                          icon: Image.asset(
-                            'assets/Icons/Dasboard.png',
-                          ),
-                          iconSize: 30,
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DashboardPage()),
-                            );
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15, bottom: 10),
-                        child: IconButton(
-                          icon: Image.asset(
-                            'assets/Icons/Monitoring.png',
-                          ),
-                          iconSize: 30,
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Monitoringpage()),
-                            );
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15, bottom: 10),
-                        child: IconButton(
-                          icon: Image.asset(
-                            'assets/Icons/ControlPanel.png',
-                          ),
-                          iconSize: 30,
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Controlingpage()),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
+            // Profile Button
+            ListTile(
+              leading: Icon(Icons.account_circle),
+              title: Text('Profile'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          ProfileScreen()), // Navigate to user profile page
+                );
+              },
+            ),
+            // Logout Button
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('Logout'),
+              onTap: () {
+                _signOut(); // Call sign-out method
+              },
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped, // Update the selected screen
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.dashboard),
+            label: 'Dashboard',
           ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 100),
-                    child: Text(
-                      'Home Energy Monitoring And Optimizing System',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: const Color.fromARGB(255, 17, 17, 17),
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 80),
-                    child: Image.asset(
-                      'assets/Icons/HomePage.gif',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 40),
-                  child: Text('Select an option from the side panel',
-                      style: TextStyle(fontSize: 16)),
-                ),
-              ],
-            ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.monitor),
+            label: 'Monitoring',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.control_camera),
+            label: 'Control Panel',
           ),
         ],
       ),
