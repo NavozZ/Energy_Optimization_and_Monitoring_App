@@ -1,0 +1,1 @@
+D:\GitHub\IOT_App_Development\energy_optimization_and_monitoring_app\build\app\intermediates\cxx\Debug\31ra5l94\obj\arm64-v8a

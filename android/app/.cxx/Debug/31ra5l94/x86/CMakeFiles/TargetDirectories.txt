@@ -1,0 +1,2 @@
+D:/GitHub/IOT_App_Development/energy_optimization_and_monitoring_app/android/app/.cxx/Debug/31ra5l94/x86/CMakeFiles/edit_cache.dir
+D:/GitHub/IOT_App_Development/energy_optimization_and_monitoring_app/android/app/.cxx/Debug/31ra5l94/x86/CMakeFiles/rebuild_cache.dir
