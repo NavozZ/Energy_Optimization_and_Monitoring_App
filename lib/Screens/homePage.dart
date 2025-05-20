@@ -1,9 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:energy_optimization_and_monitoring_app/Screens/ControlingPage.dart';
 import 'package:energy_optimization_and_monitoring_app/Screens/DashboardPage.dart';
 import 'package:energy_optimization_and_monitoring_app/Screens/MonitoringPage.dart';
 import 'package:energy_optimization_and_monitoring_app/Screens/UserProfilePage.dart'; // Add your Profile page
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Homepage extends StatefulWidget {
@@ -22,7 +22,7 @@ class _HomepageState extends State<Homepage> {
   final List<Widget> _screens = [
     DashboardPage(),
     Monitoringpage(),
-    Controlingpage(),
+    ControlPage(),
   ];
 
   // Create a GlobalKey for the Scaffold to open the Drawer
@@ -119,7 +119,7 @@ class _HomepageState extends State<Homepage> {
                 );
               },
             ),
-            // Logout Button
+            //Logout Button
             ListTile(
               leading: Icon(Icons.logout),
               title: Text('Logout'),

@@ -29,6 +29,8 @@ dependencies:
   cloud_firestore: ^5.6.6
   firebase_core: ^3.12.1
   mqtt_client: ^10.8.0
+  firebase_database: ^11.3.5
+
 
 dev_dependencies:
   flutter_test:

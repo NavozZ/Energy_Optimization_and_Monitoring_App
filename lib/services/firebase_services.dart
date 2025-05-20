@@ -18,4 +18,11 @@ class FirebaseServices {
       "mobile-number": mobileNo
     });
   }
+
+  // New method to update garage door state
+  static Future<void> updateGarageDoorState(String newState) async {
+    final garageDoc =
+        FirebaseFirestore.instance.collection('settings').doc('garageDoor');
+    await garageDoc.set({'state': newState}, SetOptions(merge: true));
+  }
 }

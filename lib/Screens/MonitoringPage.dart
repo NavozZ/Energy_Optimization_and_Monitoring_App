@@ -90,20 +90,6 @@ class Monitoringpage extends StatelessWidget {
                   ),
                 ],
               ),
-
-              // Car Charging Section
-              _buildSectionHeader('Car Charging'),
-              _buildHorizontalCardList(
-                cards: [
-                  ChargingStatusCard(
-                    chargingStatus: ChargingStatus(
-                      title: 'Electric Car',
-                      status: 'Charging',
-                      percentage: 40,
-                    ),
-                  ),
-                ],
-              ),
             ],
           ),
         ),
